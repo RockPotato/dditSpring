@@ -29,7 +29,7 @@ public class IocMain {
 		logger.debug("=============================================");
 		
 		//rangerService DL
-		IRangerService rangerService = context.getBean("rangerService",IRangerService.class);
+		IRangerDao rangerService = context.getBean("rangerService",IRangerDao.class);
 		List<String> rangers2 = rangerService.getRangers();
 		
 		for (String ranger : rangers2)
@@ -38,7 +38,7 @@ public class IocMain {
 		logger.debug("=============================================");
 		logger.debug("rangerService 생성자 주입(rangerDao)");
 		
-		IRangerService rangerServiceConstructor = context.getBean("rangerServiceConstructor",IRangerService.class);
+		IRangerDao rangerServiceConstructor = context.getBean("rangerServiceConstructor",IRangerDao.class);
 		List<String> rangers3 = rangerServiceConstructor.getRangers();
 		
 		for (String ranger : rangers3)
