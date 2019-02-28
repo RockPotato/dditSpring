@@ -23,6 +23,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.or.ddit.test.WebTestConfig;
+
 /*
  * 1. 스프링 컨테이너 설정 필요
  * 		테스트 대상은 RangerController
@@ -34,33 +36,18 @@ import org.springframework.web.servlet.ModelAndView;
  * 		** 그렇기 때문에 RangerController를 스캔하는 servlet-context.xml 뿐만 아니라
  * 		RangerService, RangerDao를 스캔하는 application-context.xml도 필요 
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(
-		{"classpath:kr/or/ddit/config/spring/servlet-context.xml",
-		 "classpath:kr/or/ddit/config/spring/application-context.xml"	
-		})
-@WebAppConfiguration	//스프링 컨테이너를 만들 때 WebApplicationContext로 생성
-						// 미적용시 applicationContext
-public class RangerControllerTest {
+
+public class RangerControllerTest extends WebTestConfig{
 	
 	private Logger logger = LoggerFactory.getLogger(RangerControllerTest.class);
 	
-	@Autowired
-	private WebApplicationContext context;
-	
-	private MockMvc mockMvc;
-
-	//@BeforeClass(static --> 사용 빈도가 떨어짐)
-	// @Before - @Test - @After
-	// @Before - @Test - @After
-	// ..........
-	//@AfterClass
-	
-	@Before
-	public void setUp(){
-		mockMvc= MockMvcBuilders.webAppContextSetup(context).build();
-	}
-	
+	/**
+	* Method : testgetRangers
+	* 작성자 : PC04
+	* 변경이력 :
+	* @throws Exception
+	* Method 설명 : 전체 레인저스 조회 테스트
+	*/
 	@Test
 	   public void testgetRangers() throws Exception {
 	      /***Given***/
@@ -81,6 +68,13 @@ public class RangerControllerTest {
 
 	   }
 	
+	/**
+	* Method : testGetRanger
+	* 작성자 : PC04
+	* 변경이력 :
+	* @throws Exception
+	* Method 설명 : listIndex에 해당하는 레인저 이름 조회
+	*/
 	@Test
 	public void testGetRanger() throws Exception {
 		/***Given***/
