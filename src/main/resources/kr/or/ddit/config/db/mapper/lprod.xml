@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lprod">
+  <select id="getAllLprod" resultType="lprodVo">
+    select	lprod_id,lprod_gu,lprod_nm
+    from	lprod
+  </select>
+  
+  <!-- 특정 사용자 조회(userId) selectUser(String userId)
+  		query, dao(test), service(test) -->
+  <select id="selectLprod" resultType="lprodVo">
+      select	lprod_id,lprod_gu,lprod_nm
+      from	lprod
+      where lprod_id=#{lprod_id}	
+  </select>
+   <select id="selectLprodPageList" resultType="lprodVo" parameterType="pageVo">
+    select *
+   from 
+       ( select a.*, rownum rn
+       from
+           (select lprod.*
+           from lprod
+           order by lprod_id) a ) a
+           
+   where rn between (#{page}-1) * #{pageSize}+1 and #{page} * #{pageSize}
+  </select>
+  <!-- 전체 사용자 수 조회 -->
+  
+  <select id="getLprodCnt" resultType="integer">
+  	select count(*)
+  	from lprod
+  
+  </select>
+</mapper>

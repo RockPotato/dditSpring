@@ -23,5 +23,9 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<br>
+	게시판 구분 : ${boardGb }<br>
+	게시판 구분 : ${boardGb2 }<br>
+	rangerVO : ${rVo}<br>
 </body>
 </html>

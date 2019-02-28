@@ -7,6 +7,11 @@
 <title>ranger</title>
 </head>
 <body>
-	ranger : ${ranger}
+	rangerVO : ${rVo}<br>
+	ranger : ${ranger} <br>
+	session scope 게시판 구분 : ${sessionScope.boardGb }<br>
+	게시판 구분 : ${boardGb2 }
+	
+	<%=new String("test") %>
 </body>
 </html>
