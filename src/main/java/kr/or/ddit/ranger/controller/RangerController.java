@@ -50,6 +50,7 @@ public class RangerController {
 //		RangerVO rangerVo = new RangerVO();
 //		rangerVo.setListIndex(request.getParameter(listIndex));
 //		getRanger(rangerVo,model);
+		
 		String ranger = rangerService.getRanger(rangerVo.getListIndex());
 		model.addAttribute("ranger",ranger);
 		return "ranger/ranger";
