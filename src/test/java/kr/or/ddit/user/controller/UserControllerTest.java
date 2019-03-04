@@ -38,6 +38,13 @@ public class UserControllerTest extends WebTestConfig {
 		assertTrue(userList.size() > 100);
 	}
 
+	/**
+	* Method : testUserPagingList
+	* 작성자 : PC04
+	* 변경이력 :
+	* @throws Exception
+	* Method 설명 : 사용자 페이징 리스트 조회 테스트
+	*/
 	@Test
 	public void testUserPagingList() throws Exception {
 		/*** Given ***/
@@ -61,5 +68,32 @@ public class UserControllerTest extends WebTestConfig {
 		assertTrue(userList.size() == 10);
 
 	}
+	/**
+	* Method : testUser
+	* 작성자 : PC04
+	* 변경이력 :
+	* @throws Exception
+	* Method 설명 : 사용자 상세 보기 조회 테스트
+	*/
+	@Test
+	public void testUser() throws Exception {
+		/*** Given ***/
+		MvcResult mvcResult = mockMvc.perform(get("/user/user").param("userId", "brown")).andReturn();
+		
+		/*** When ***/
+		ModelAndView mav = mvcResult.getModelAndView();
+		
+		String viewName = mav.getViewName();
+		UserVO userVo =  (UserVO) mav.getModel().get("userVo");
+		
+		/*** Then ***/
+		assertEquals("user/user", viewName);
+		assertNotNull(userVo);
+		assertEquals("곰돌이",userVo.getAlias());
+		
+	}
+	
+//	@Test
+//	public void testProfileImg(){}
 
 }
