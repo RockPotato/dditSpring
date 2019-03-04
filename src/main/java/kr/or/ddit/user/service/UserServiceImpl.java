@@ -66,7 +66,7 @@ public class UserServiceImpl implements IUserService {
 		SqlSession openSession = sqlSessionFactory.openSession();
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		resultMap.put("userList", userDao.selectUserPagingList(openSession,pageVo));
-		resultMap.put("getUserCnt", userDao.getUserCnt(openSession));
+		resultMap.put("userCnt", userDao.getUserCnt(openSession));
 		openSession.close();
 		return resultMap;
 	}
