@@ -82,8 +82,8 @@ public class UserServiceImplTest extends LogicTestConfig{
 //		String userId = "userId1";
 //		service.encryptPass(userId);
 //	}
-	@Test
-	public void testEncryptPassAll(){
-		service.encryptPassAll();
-	}
+//	@Test
+//	public void testEncryptPassAll(){
+//		service.encryptPassAll();
+//	}
 }

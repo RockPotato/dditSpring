@@ -86,6 +86,7 @@ public class UserServiceImpl implements IUserService {
 		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
 		SqlSession openSession = sqlSessionFactory.openSession();
 		int num =userDao.deleteUser(openSession,userId);
+		openSession.commit();
 		openSession.close();
 		return num;
 	}
