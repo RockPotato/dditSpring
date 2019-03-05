@@ -28,6 +28,15 @@ public class MvcController {
 	public String view(){
 		return "mvc/view";
 	}
+	/**
+	* Method : fileupload
+	* 작성자 : PC04
+	* 변경이력 :
+	* @param userid
+	* @param multipartFile
+	* @return
+	* Method 설명 : fileupload 처리 요청 테스트
+	*/
 	@RequestMapping("/mvc/fileupload")
 	public String fileupload(@RequestParam("userId")String userid, @RequestPart("profile")MultipartFile multipartFile){
 		logger.debug("userId : {}", userid);

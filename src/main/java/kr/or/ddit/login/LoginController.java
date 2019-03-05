@@ -50,5 +50,10 @@ public class LoginController {
 		else
 			return "login/login";
 	}
+	@RequestMapping(value={"/logout"},method={RequestMethod.GET})
+	public String logout(){
+		
+		return "login/login";
+	}
 	
 }

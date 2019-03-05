@@ -8,8 +8,8 @@
 				<li><a href="${cp}/user/userPagingList">사용자 리스트 페이징</a></li>
 			</ul>
 			<ul class="nav nav-sidebar">
-				<li><a href="${cp}/lprodList">제품 그룹리스트 리스트</a></li>
-				<li><a href="${cp}/LprodpageList">제품리스트 리스트 페이징</a></li>
+				<li><a href="${cp}/prod/lprodList">제품 그룹리스트 리스트</a></li>
+				<li><a href="${cp}/prod/LprodpageList">제품리스트 리스트 페이징</a></li>
 			</ul>
 		</div>
 	</div>

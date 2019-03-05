@@ -7,6 +7,10 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
+	<context:annotation-config/>
+	<!-- @controller, @Service, @Repository, @Component를 스캔 -->
+	<context:component-scan base-package="kr.or.ddit" />
+
 	<!-- @Controller 어노테이션을 처리  -->
 	<mvc:annotation-driven/>
 	
@@ -23,8 +27,8 @@
 	
 	<context:annotation-config/>
 	<context:component-scan base-package="kr.or.ddit" use-default-filters="true">
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+<!-- 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/> -->
+<!-- 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/> -->
 <!-- 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Component"/> -->
 	</context:component-scan>
 	<!-- 
