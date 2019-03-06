@@ -7,21 +7,26 @@
 <title>view.jsp</title>
 </head>
 <body>
-<!--  spring 파일업로드 설정
-   1. commons-fileupload 의존 추가(pom.xml)
-   2. multipartResolver 등록 (servlet-context.xml)
-   
-   client side
-   <form methos="post" enctype="multipart/form-data"
-   
-   
-    -->
-    <h2>spring part</h2>
-    <form action="/mvc/fileupload" method="post" enctype="multipart/form-data">
-       <input type="text" name="userId" value="brown"/> <br>
-       <input type="file" name="profile"/><br>
-       <input type="submit" value="전송">
-    </form>
-   
+view.jsp
+
+<!-- spring 파일 업로드 설정 (server-side)
+	1. commons- fileUpload 의존 추가
+	2. multipartResolver 등록 (servlet-context.xml)
+	
+	
+	client side
+	<form method="post" entype="multipart/form-data"/>   파일전송할 떄 form은 post만 가능하다.
+	
+	
+
+
+  -->
+	<form action="/mvc/fileupload" method="post" enctype="multipart/form-data">
+		<input type="text" name="userId" value="brown"/> <br/>
+		<input type="file" name="profile"/> <br/>
+		<input type="submit" value="전송"/>
+		
+		
+	 </form>  
 </body>
 </html>

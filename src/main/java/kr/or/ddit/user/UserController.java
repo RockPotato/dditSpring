@@ -269,7 +269,9 @@ public class UserController {
 
 		// 정상입력(실패)
 		else {
-			model.addAttribute("userVo", userVo);
+			UserVO userVo_dupl = userService.selectUser(userVo.getUserId());
+			model.addAttribute("userVo", userVo_dupl);
+			model.addAttribute("msg", "수정에 실패하였습니다.");
 			return "user/userModify";
 		}
 	}
