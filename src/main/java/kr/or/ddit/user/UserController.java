@@ -35,9 +35,6 @@ public class UserController {
 	@Resource(name="userService")
 	private IUserService userService;
 	
-	
-	
-	
 	/**
 	* Method : userAllList
 	* 작성자 : PC04
@@ -57,7 +54,8 @@ public class UserController {
 		
 		//webapp/user/userList.jsp 로 forward
 		// request.getRequestDispatcher("/user/userAllList.jsp").forward(request,response);
-		return "user/userAllList";
+//		return "user/userAllList";
+		return "userAllListTiles";
 	}
 	
 	/**
@@ -78,7 +76,8 @@ public class UserController {
 		model.addAttribute("pageSize",pageVo.getPageSize());
 		model.addAttribute("page",pageVo.getPage());
 		
-		return "user/userPagingList";
+//		return "user/userPagingList";
+		return "userPagingListTiles";
 	}
 		
 	/**
@@ -95,7 +94,8 @@ public class UserController {
 		
 		UserVO selectUser = userService.selectUser(userId);
 		model.addAttribute("userVo",selectUser);
-		return "user/user";
+//		return "user/user";
+		return "userTiles";
 	}
 	
 	@RequestMapping("/profileImg")
