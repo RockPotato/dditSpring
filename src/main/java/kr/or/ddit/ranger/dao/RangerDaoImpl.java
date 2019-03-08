@@ -2,12 +2,19 @@ package kr.or.ddit.ranger.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import javax.annotation.Resource;
+
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 
 @Repository("rangerDao")
 public class RangerDaoImpl implements IRangerDao{
+	
+	@Resource(name="sqlSessionTemplate")
+	private SqlSessionTemplate sqlSession;
 	
 	private List<String> rangers;
 
@@ -45,5 +52,30 @@ public class RangerDaoImpl implements IRangerDao{
 		else {
 			return rangers.get(listindex);
 		}
+	}
+
+	@Override
+	public List<Map<String, String>> getRangersDb() {
+		return sqlSession.selectList("ranger.getRangersDb");
+	}
+
+	@Override
+	public Map<String, String> getRanger(String id) {
+		return sqlSession.selectOne("ranger.getRanger",id);
+	}
+
+	@Override
+	public int insertRanger(Map<String, String> map) {
+		return sqlSession.insert("ranger.insertRanger",map);
+	}
+
+	@Override
+	public int deleteRanger(String id) {
+		return sqlSession.delete("ranger.deleteRanger",id);
+	}
+
+	@Override
+	public int deleteRangerDept(String id) {
+		return sqlSession.delete("ranger.deleteRangerDept",id);
 	}
 }

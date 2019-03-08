@@ -19,21 +19,22 @@ import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.util.model.PageVO;
 
 public class UserDaoImplTest  extends LogicTestConfig{
-	private SqlSession openSession;
+//	private SqlSession openSession;
 	@Resource(name="userDao")
 	private IUserDao userDao;
 
 	@Before
 	public void setup() {
-		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory
-				.getSqlSessionFactory();
-		openSession = sqlSessionFactory.openSession();
+//		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory
+//				.getSqlSessionFactory();
+//		openSession = sqlSessionFactory.openSession();
+		userDao.deleteUser("test1");
 	}
 
 	@After
 	public void tearDown() {
-		openSession.commit();
-		openSession.close();
+//		openSession.commit();
+//		openSession.close();
 	}
 
 	// getAllUser 메소드를 테스트 하는 메소드 작성
@@ -41,20 +42,20 @@ public class UserDaoImplTest  extends LogicTestConfig{
 	public void testGetAllUser() {
 		/*** Given ***/
 		/*** When ***/
-		List<UserVO> allUser = userDao.getAllUser(openSession);
+		List<UserVO> allUser = userDao.getAllUser();
 		/*** Then ***/
 		for (int i = 0; i < allUser.size(); i++) {
 			System.out.println(allUser.get(i));
 		}
 		assertEquals(106, allUser.size());
-		assertNotNull(userDao.getAllUser(openSession));
+		assertNotNull(userDao.getAllUser());
 	}
 
 	@Test
 	public void testSelectUser() {
 		/*** Given ***/
 		/*** When ***/
-		UserVO selectUser = userDao.selectUser(openSession, "moon");
+		UserVO selectUser = userDao.selectUser("moon");
 		System.out.println(selectUser);
 		/*** Then ***/
 		assertEquals("moon", selectUser.getUserId());
@@ -72,10 +73,10 @@ public class UserDaoImplTest  extends LogicTestConfig{
 		userVo.setAddr2("haha");
 		userVo.setZipcode("34942");
 
-		userDao.deleteUser(openSession, "haha");
+		userDao.deleteUser( "haha");
 
 		/*** When ***/
-		int cnt = userDao.insertUser(openSession, userVo);
+		int cnt = userDao.insertUser(userVo);
 		/*** Then ***/
 		assertEquals(1, cnt);
 	}
@@ -88,7 +89,7 @@ public class UserDaoImplTest  extends LogicTestConfig{
 
 		/*** When ***/
 		List<UserVO> userList = userDao
-				.selectUserPagingList(openSession, pageVo);
+				.selectUserPagingList(pageVo);
 
 		/*** Then ***/
 		assertNotNull(userList);
@@ -101,7 +102,7 @@ public class UserDaoImplTest  extends LogicTestConfig{
 		/*** Given ***/
 
 		/*** When ***/
-		int userCnt = userDao.getUserCnt(openSession);
+		int userCnt = userDao.getUserCnt();
 
 		/*** Then ***/
 		assertNotNull(userCnt);
@@ -148,7 +149,7 @@ public class UserDaoImplTest  extends LogicTestConfig{
 		vo.setUserNm("12345");
 		vo.setAlias("haha");
 		
-		int cnt = userDao.updateUser(openSession, vo);
+		int cnt = userDao.updateUser(vo);
 		assertEquals(1, cnt);
 	}
 

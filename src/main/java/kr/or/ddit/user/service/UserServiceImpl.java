@@ -36,10 +36,7 @@ public class UserServiceImpl implements IUserService {
 	* Method 설명 : 전체 사용자 조회
 	*/
 	public List<UserVO> getAllUser(){
-		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
-		SqlSession openSession = sqlSessionFactory.openSession();
-		List<UserVO> list =userDao.getAllUser(openSession);
-		openSession.close();
+		List<UserVO> list =userDao.getAllUser();
 		return list;
 	}
 
@@ -53,78 +50,51 @@ public class UserServiceImpl implements IUserService {
 	*/
 	@Override
 	public UserVO selectUser(String userId) {
-		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
-		SqlSession openSession = sqlSessionFactory.openSession();
-		UserVO vo = userDao.selectUser(openSession,userId);
-		openSession.close();
+		UserVO vo = userDao.selectUser(userId);
 		return vo;
 	}
 
 	@Override
 	public Map<String, Object> selectUserPagingList(PageVO pageVo) {
-		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
-		SqlSession openSession = sqlSessionFactory.openSession();
 		Map<String,Object> resultMap = new HashMap<String,Object>();
-		resultMap.put("userList", userDao.selectUserPagingList(openSession,pageVo));
-		resultMap.put("userCnt", userDao.getUserCnt(openSession));
-		openSession.close();
+		resultMap.put("userList", userDao.selectUserPagingList(pageVo));
+		resultMap.put("userCnt", userDao.getUserCnt());
 		return resultMap;
 	}
 
 	@Override
 	public int insertUser(UserVO userVo) {
-		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
-		SqlSession openSession = sqlSessionFactory.openSession();
-		int num =userDao.insertUser(openSession,userVo);
-		openSession.commit();
-		openSession.close();
-		return num;
+		return userDao.insertUser(userVo);
 	}
 
 	@Override
 	public int deleteUser(String userId) {
-		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
-		SqlSession openSession = sqlSessionFactory.openSession();
-		int num =userDao.deleteUser(openSession,userId);
-		openSession.commit();
-		openSession.close();
+		int num =userDao.deleteUser(userId);
 		return num;
 	}
 
 	@Override
 	public int updateUser(UserVO userVo) {
-		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
-		SqlSession openSession = sqlSessionFactory.openSession();
-		int num =userDao.updateUser(openSession,userVo);
-		openSession.commit();
-		openSession.close();
+		int num =userDao.updateUser(userVo);
 		return num;
 	}
 
 	@Override
 	public void encryptPass(String userId) {
-		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
-		SqlSession openSession = sqlSessionFactory.openSession();
-		UserVO selectUser = userDao.selectUser(openSession,userId);
+		UserVO selectUser = userDao.selectUser(userId);
 		String plainPass = selectUser.getPass();
 		String encrypt = KISA_SHA256.encrypt(plainPass);
 		selectUser.setPass(encrypt);
-		userDao.updateUser(openSession, selectUser);
-		openSession.commit();
-		openSession.close();
+		userDao.updateUser( selectUser);
 	};
 	@Override
 	public void encryptPassAll() {
-		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
-		SqlSession openSession = sqlSessionFactory.openSession();
-		List<UserVO> allUser = userDao.getAllUser(openSession);
+		List<UserVO> allUser = userDao.getAllUser();
 		for (UserVO vo :allUser) {
 			String plainPass = vo.getPass();
 			String encrypt = KISA_SHA256.encrypt(plainPass);
 			vo.setPass(encrypt);
-			userDao.updateUserPass(openSession, vo);
+			userDao.updateUserPass( vo);
 		}
-		openSession.commit();
-		openSession.close();
 	};
 }

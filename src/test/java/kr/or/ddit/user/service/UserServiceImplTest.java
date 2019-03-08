@@ -14,12 +14,19 @@ import kr.or.ddit.user.model.UserVO;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.junit.Before;
 import org.junit.Test;
 
 public class UserServiceImplTest extends LogicTestConfig{
 
 	@Resource(name="userService")
 	IUserService service;
+	
+	@Before
+	public void setup() {
+		service.deleteUser("test1");
+	}
+	
 	
 	//getAllUser 메소드를 테스트 하는 메소드 작성
 	@Test
@@ -46,7 +53,7 @@ public class UserServiceImplTest extends LogicTestConfig{
 	@Test
 	public void testInsertUser(){
 		UserVO userVo = new UserVO();
-		userVo.setUserId("haha");
+		userVo.setUserId("userId123");
 		userVo.setUserNm("haha");
 		userVo.setAlias("haha");
 		userVo.setPass("haha1234");
@@ -59,7 +66,7 @@ public class UserServiceImplTest extends LogicTestConfig{
 	
 	@Test
 	public void testDeleteUser(){
-		String userId="haha";
+		String userId="userId37";
 		int cnt = service.deleteUser(userId);
 		assertEquals(1, cnt);
 	}
@@ -67,7 +74,7 @@ public class UserServiceImplTest extends LogicTestConfig{
 	@Test
 	public void testUpdateUser(){
 		UserVO userVo = new UserVO();
-		userVo.setUserId("haha");
+		userVo.setUserId("userId37");
 		userVo.setUserNm("haha");
 		userVo.setAlias("haha");
 		userVo.setPass("haha1234");
@@ -77,6 +84,13 @@ public class UserServiceImplTest extends LogicTestConfig{
 		int cnt = service.updateUser(userVo);
 		assertEquals(1, cnt);
 	}
+	
+	/**
+	* Method : testEncryptPass
+	* 작성자 : PC04
+	* 변경이력 :
+	* Method 설명 : 사용자 비밀번호 일괄 변경
+	*/
 //	@Test
 //	public void testEncryptPass(){
 //		String userId = "userId1";

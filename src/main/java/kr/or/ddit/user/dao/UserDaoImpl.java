@@ -2,17 +2,21 @@ package kr.or.ddit.user.dao;
 
 import java.util.List;
 
-import kr.or.ddit.db.mybatis.MybatisSqlSessionFactory;
-import kr.or.ddit.user.model.UserVO;
-import kr.or.ddit.util.model.PageVO;
+import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+
+import kr.or.ddit.user.model.UserVO;
+import kr.or.ddit.util.model.PageVO;
 
 
 @Repository("userDao")
 public class UserDaoImpl implements IUserDao {
+
+	@Resource(name="sqlSessionTemplate")
+    private SqlSessionTemplate sqlSessionTemplate;
 	/**
 	* Method : getAllUser
 	* 작성자 : PC04
@@ -21,8 +25,8 @@ public class UserDaoImpl implements IUserDao {
 	* Method 설명 : 전체 사용자 조회
 	*/
 	@Override
-	public List<UserVO> getAllUser(SqlSession openSession){
-		List<UserVO> list =openSession.selectList("user.getAllUser");
+	public List<UserVO> getAllUser(){
+		List<UserVO> list =sqlSessionTemplate.selectList("user.getAllUser");
 		return list;
 	}
 
@@ -34,20 +38,20 @@ public class UserDaoImpl implements IUserDao {
 	* Method 설명 : 틎정 사용자 조회
 	*/
 	@Override
-	public UserVO selectUser(SqlSession openSession,String userId) {
-		UserVO userVo = openSession.selectOne("user.selectUser",userId);
+	public UserVO selectUser(String userId) {
+		UserVO userVo = sqlSessionTemplate.selectOne("user.selectUser",userId);
 		return userVo;
 	}
 
 	@Override
-	public List<UserVO> selectUserPagingList(SqlSession openSession,PageVO pageVo) {
-		List<UserVO> userPageList =openSession.selectList("user.selectUserPagingList" , pageVo);
+	public List<UserVO> selectUserPagingList(PageVO pageVo) {
+		List<UserVO> userPageList =sqlSessionTemplate.selectList("user.selectUserPagingList" , pageVo);
 		return userPageList;
 	}
 
 	@Override
-	public int getUserCnt(SqlSession openSession) {
-		int userCnt =openSession.selectOne("user.getUserCnt");
+	public int getUserCnt() {
+		int userCnt =sqlSessionTemplate.selectOne("user.getUserCnt");
 		return userCnt;
 	}
 
@@ -60,8 +64,8 @@ public class UserDaoImpl implements IUserDao {
 	* Method 설명 : 사용자 등록
 	*/
 	@Override
-	public int insertUser(SqlSession openSession,UserVO userVo) {
-		int insert =openSession.insert("user.insertUser",userVo);
+	public int insertUser(UserVO userVo) {
+		int insert =sqlSessionTemplate.insert("user.insertUser",userVo);
 		return insert;
 	}
 
@@ -74,20 +78,20 @@ public class UserDaoImpl implements IUserDao {
 	* Method 설명 : 사용자 삭제
 	*/
 	@Override
-	public int deleteUser(SqlSession openSession,String userId) {
-		int deleteUser =openSession.delete("user.deleteUser",userId);
+	public int deleteUser(String userId) {
+		int deleteUser =sqlSessionTemplate.delete("user.deleteUser",userId);
 		return deleteUser;
 	}
 
 	@Override
-	public int updateUser(SqlSession openSession, UserVO userVo) {
-		int updateUser = openSession.update("user.updateUser",userVo);
+	public int updateUser( UserVO userVo) {
+		int updateUser = sqlSessionTemplate.update("user.updateUser",userVo);
 		return updateUser;
 	}
 
 	@Override
-	public int updateUserPass(SqlSession openSession, UserVO userVo) {
-		int updateUser = openSession.update("user.updateUserPass",userVo);
+	public int updateUserPass( UserVO userVo) {
+		int updateUser = sqlSessionTemplate.update("user.updateUserPass",userVo);
 		return updateUser;
 	}
 }

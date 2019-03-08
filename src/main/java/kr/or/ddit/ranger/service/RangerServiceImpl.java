@@ -42,5 +42,13 @@ public class RangerServiceImpl implements IRangerService{
 		return rangerDao.getRanger(listindex);
 	}
 
+	@Override
+	public int deleteRanger(String id) {
+		int deleteCnt =0;
+		deleteCnt += rangerDao.deleteRangerDept(id);
+		deleteCnt += rangerDao.deleteRanger(id);
+		return deleteCnt;
+	}
+
 	
 }
